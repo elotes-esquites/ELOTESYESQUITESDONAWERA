@@ -1,45 +1,271 @@
-<!--
-  Hit RUN to see this project in action!
-  
-  This project will auto-refresh as you edit the HTML, CSS and JS. See README.md for more info (including how to disable auto-refresh and install packages).
--->
-
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Replit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELOTES Y ESQUITES DOÑA WERA - L3HO</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  <main>
-    <h1 class="title">Welcome to HTML on Replit!</h1>
-    <p class="description">Get started by editing
-      <code class="code">index.html</code>. The webview will auto-refresh as you edit! (See <code
-        class="code">README.md</code> if you want to
-      disable auto-refresh.)
-    </p>
+  <!-- Audio de fondo -->
+  <audio id="background-music" loop>
+    <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+    <!-- Placeholder para música de fondo -->
+  </audio>
 
-    <section class="grid">
-      <a href="https://replit.com/learn" class='card'>
-        <h2>Learn &rarr;</h2>
-        <p>Find tutorials on Replit to learn more.</p>
-      </a>
+  <!-- Control de música -->
+  <div class="music-control">
+    <button id="music-toggle" aria-label="Reproducir/Pausar música">
+      <i class="fas fa-music"></i>
+    </button>
+  </div>
 
-      <a href="https://docs.replit.com/category/deployments" class='card'>
-        <h2>Deploy &rarr;</h2>
-        <p>
-          After you are happy with this app, deploy it on Replit!
-        </p>
-      </a>
-    </section>
-  </main>
+  <!-- Header con navegación -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="logo-container">
+        <div class="logo">
+          <div class="logo-text">
+            <span class="company">L3HO</span>
+            <span class="brand">DOÑA WERA</span>
+          </div>
+          <div class="logo-icon">🌽</div>
+        </div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="#productos" class="nav-link">Productos</a></li>
+        <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sección Hero -->
+  <section id="inicio" class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="animated-text">ELOTES Y ESQUITES</span>
+          <span class="brand-name">DOÑA WERA</span>
+        </h1>
+        <p class="hero-subtitle">¡El sabor auténtico de México en cada bocado!</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary">Ver Menú</button>
+          <button class="btn btn-secondary">Ordenar Ahora</button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="floating-corn">🌽</div>
+        <div class="floating-corn">🌽</div>
+        <div class="floating-corn">🌽</div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Desliza hacia abajo</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- Sección de Productos -->
+  <section id="productos" class="products">
+    <div class="container">
+      <h2 class="section-title">Nuestros Deliciosos Productos</h2>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="attached_assets/stock_images/delicious_mexican_co_23aca9df.jpg" alt="Elotes Doña Wera">
+            <div class="product-overlay">
+              <button class="btn-overlay">Ver Más</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3>Elotes</h3>
+            <p>Deliciosos elotes preparados con mayonesa, queso cotija, chile piquín y limón. ¡Tradicionales y sabrosos!</p>
+            <div class="product-price">$25 MXN</div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="attached_assets/stock_images/delicious_mexican_co_7751caf2.jpg" alt="Elotes Especiales">
+            <div class="product-overlay">
+              <button class="btn-overlay">Ver Más</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3>Elotes Especiales</h3>
+            <p>Nuestra versión gourmet con ingredientes premium y salsas especiales de la casa.</p>
+            <div class="product-price">$35 MXN</div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="attached_assets/stock_images/mexican_esquites_cor_79a13241.jpg" alt="Esquites Doña Wera">
+            <div class="product-overlay">
+              <button class="btn-overlay">Ver Más</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3>Esquites</h3>
+            <p>Esquites preparados en vaso con todos los condimentos tradicionales. ¡Perfectos para llevar!</p>
+            <div class="product-price">$20 MXN</div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="attached_assets/stock_images/mexican_esquites_cor_c9639cea.jpg" alt="Esquites Premium">
+            <div class="product-overlay">
+              <button class="btn-overlay">Ver Más</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3>Esquites Premium</h3>
+            <p>Esquites con ingredientes selectos y nuestras salsas artesanales únicas.</p>
+            <div class="product-price">$30 MXN</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Nosotros -->
+  <section id="nosotros" class="about">
+    <div class="container">
+      <h2 class="section-title">Conoce a Doña Wera</h2>
+      <div class="about-content">
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="card-icon">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h3>Nuestra Misión</h3>
+            <p>Compartir el auténtico sabor de México a través de nuestros elotes y esquites preparados con amor, ingredientes frescos y recetas tradicionales que han pasado de generación en generación. Queremos que cada cliente experimente la alegría y el sabor de nuestra cultura mexicana.</p>
+          </div>
+
+          <div class="about-card">
+            <div class="card-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <h3>Nuestra Visión</h3>
+            <p>Ser reconocidos como la marca líder de elotes y esquites en nuestra comunidad, expandiendo nuestro negocio familiar para llevar los sabores auténticos de México a más familias, manteniendo siempre la calidad y tradición que nos caracteriza.</p>
+          </div>
+
+          <div class="about-card">
+            <div class="card-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Nuestros Valores</h3>
+            <ul>
+              <li><strong>Tradición:</strong> Respetamos y preservamos las recetas familiares</li>
+              <li><strong>Calidad:</strong> Usamos solo los mejores ingredientes frescos</li>
+              <li><strong>Familia:</strong> Tratamos a cada cliente como parte de nuestra familia</li>
+              <li><strong>Pasión:</strong> Amamos lo que hacemos y se nota en cada producto</li>
+              <li><strong>Honestidad:</strong> Precios justos y servicio transparente</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Testimonios -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p>"Los mejores elotes de la ciudad. El sabor es increíble y Doña Wera siempre nos atiende con una sonrisa."</p>
+          <div class="customer">- María González</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p>"Cada vez que pruebo sus esquites me transporto a mi infancia. ¡Auténticos y deliciosos!"</p>
+          <div class="customer">- Carlos Mendoza</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p>"Ingredientes frescos, precios justos y el mejor servicio. Definitivamente recomendados."</p>
+          <div class="customer">- Ana Rodríguez</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Contacto -->
+  <section id="contacto" class="contact">
+    <div class="container">
+      <h2 class="section-title">¡Ven y prueba nuestros elotes!</h2>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Ubicación</h4>
+              <p>Esquina de la Tradición y el Sabor<br>Colonia del Maíz, Ciudad de México</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h4>Horarios</h4>
+              <p>Lunes a Domingo<br>10:00 AM - 10:00 PM</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Teléfono</h4>
+              <p>+52 55 1234-5678</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map">
+          <div class="map-placeholder">
+            <i class="fas fa-map"></i>
+            <p>Mapa Interactivo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div class="logo">
+            <div class="logo-text">
+              <span class="company">L3HO</span>
+              <span class="brand">DOÑA WERA</span>
+            </div>
+            <div class="logo-icon">🌽</div>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 L3HO - Elotes y Esquites Doña Wera. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="script.js"></script>
-
 </body>
-
 </html>
