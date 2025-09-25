@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupScrollEffects();
     setupProductCards();
     createFloatingElements();
+    setupInteractiveSchedule();
 
     // Control de música de fondo simplificado
     function setupMusicControl() {
@@ -411,6 +412,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+
+    // Configurar horarios interactivos
+    function setupInteractiveSchedule() {
+        const statusElement = document.querySelector('.current-status');
+        if (!statusElement) return;
+
+        function updateScheduleStatus() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinutes = now.getMinutes();
+            const currentTime = currentHour * 60 + currentMinutes;
+            
+            // Horarios: 3:30 PM - 8:30 PM (15:30 - 20:30)
+            const openTime = 15 * 60 + 30; // 15:30 = 930 minutos
+            const closeTime = 20 * 60 + 30; // 20:30 = 1230 minutos
+            const soonTime = 15 * 60; // 15:00 = 900 minutos (30 min antes)
+
+            statusElement.className = 'current-status';
+
+            if (currentTime >= openTime && currentTime <= closeTime) {
+                statusElement.classList.add('open');
+                statusElement.textContent = '🟢 ¡ABIERTO AHORA!';
+            } else if (currentTime >= soonTime && currentTime < openTime) {
+                statusElement.classList.add('soon');
+                statusElement.textContent = '🟡 ABRIMOS PRONTO';
+            } else {
+                statusElement.classList.add('closed');
+                statusElement.textContent = '🔴 CERRADO';
+            }
+        }
+
+        // Actualizar cada minuto
+        updateScheduleStatus();
+        setInterval(updateScheduleStatus, 60000);
+    }
 
     // Mensajes de bienvenida
     setTimeout(() => {
