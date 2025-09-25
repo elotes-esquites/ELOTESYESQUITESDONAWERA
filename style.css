@@ -997,6 +997,17 @@ body {
   color: var(--text-dark);
 }
 
+.current-status.closing-soon {
+  background: linear-gradient(135deg, #FF9800, #FFB74D);
+  color: white;
+}
+
+.current-status small {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
 @keyframes statusBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.8; }
@@ -1021,6 +1032,78 @@ body {
 .day-schedule:hover, .time-schedule:hover {
   background: rgba(255, 107, 53, 0.2);
   transform: scale(1.05);
+}
+
+/* Indicador de tiempo avanzado */
+.time-indicator {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.time-progress {
+  position: relative;
+  background: #E0E0E0;
+  height: 8px;
+  border-radius: 10px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #81C784);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: progressShine 2s ease-in-out infinite;
+}
+
+@keyframes progressShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.time-markers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.marker.start {
+  color: var(--primary-color);
+}
+
+.marker.current {
+  background: rgba(255, 107, 53, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 700;
+  animation: currentTimeGlow 2s ease-in-out infinite;
+}
+
+@keyframes currentTimeGlow {
+  0%, 100% { box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3); }
+  50% { box-shadow: 0 4px 15px rgba(255, 107, 53, 0.5); }
+}
+
+.marker.end {
+  color: var(--secondary-color);
 }
 
 /* Enlaces de contacto interactivos */

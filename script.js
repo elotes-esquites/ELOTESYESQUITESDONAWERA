@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 
-    // Configurar horarios interactivos
+    // Configurar horarios súper interactivos
     function setupInteractiveSchedule() {
         const statusElement = document.querySelector('.current-status');
         if (!statusElement) return;
@@ -428,24 +428,117 @@ document.addEventListener('DOMContentLoaded', function() {
             const openTime = 15 * 60 + 30; // 15:30 = 930 minutos
             const closeTime = 20 * 60 + 30; // 20:30 = 1230 minutos
             const soonTime = 15 * 60; // 15:00 = 900 minutos (30 min antes)
+            const closingSoonTime = 20 * 60; // 20:00 = 1200 minutos (30 min antes del cierre)
 
             statusElement.className = 'current-status';
 
-            if (currentTime >= openTime && currentTime <= closeTime) {
+            if (currentTime >= openTime && currentTime <= closingSoonTime) {
+                // Abierto normalmente
                 statusElement.classList.add('open');
-                statusElement.textContent = '🟢 ¡ABIERTO AHORA!';
+                const remainingMinutes = closingSoonTime - currentTime;
+                const hours = Math.floor(remainingMinutes / 60);
+                const minutes = remainingMinutes % 60;
+                statusElement.innerHTML = `🟢 ¡ABIERTO AHORA!<br><small>Cerramos en ${hours}h ${minutes}min</small>`;
+            } else if (currentTime > closingSoonTime && currentTime <= closeTime) {
+                // Cerrando pronto
+                statusElement.classList.add('closing-soon');
+                const remainingMinutes = closeTime - currentTime;
+                statusElement.innerHTML = `🟠 ¡CERRANDO PRONTO!<br><small>Solo quedan ${remainingMinutes} minutos</small>`;
             } else if (currentTime >= soonTime && currentTime < openTime) {
+                // Abrimos pronto
                 statusElement.classList.add('soon');
-                statusElement.textContent = '🟡 ABRIMOS PRONTO';
+                const remainingMinutes = openTime - currentTime;
+                statusElement.innerHTML = `🟡 ABRIMOS PRONTO<br><small>En ${remainingMinutes} minutos</small>`;
             } else {
+                // Cerrado
                 statusElement.classList.add('closed');
-                statusElement.textContent = '🔴 CERRADO';
+                let nextOpenTime;
+                if (currentTime < soonTime) {
+                    // Mismo día
+                    nextOpenTime = openTime - currentTime;
+                } else {
+                    // Día siguiente (24 horas - tiempo actual + tiempo de apertura)
+                    nextOpenTime = (24 * 60) - currentTime + openTime;
+                }
+                
+                const hours = Math.floor(nextOpenTime / 60);
+                const minutes = nextOpenTime % 60;
+                
+                if (hours < 1) {
+                    statusElement.innerHTML = `🔴 CERRADO<br><small>Abrimos en ${minutes} minutos</small>`;
+                } else if (hours < 24) {
+                    statusElement.innerHTML = `🔴 CERRADO<br><small>Abrimos en ${hours}h ${minutes}min</small>`;
+                } else {
+                    const remainingHours = hours - 24;
+                    statusElement.innerHTML = `🔴 CERRADO<br><small>Abrimos mañana en ${remainingHours}h ${minutes}min</small>`;
+                }
             }
+
+            // Añadir efecto pulsante cada 2 segundos
+            statusElement.style.animation = 'none';
+            setTimeout(() => {
+                statusElement.style.animation = 'statusBlink 2s ease-in-out infinite';
+            }, 100);
         }
 
-        // Actualizar cada minuto
+        // Crear indicador visual adicional
+        function createTimeIndicator() {
+            const scheduleContainer = document.querySelector('.schedule-interactive');
+            if (!scheduleContainer) return;
+
+            const indicator = document.createElement('div');
+            indicator.className = 'time-indicator';
+            indicator.innerHTML = `
+                <div class="time-progress">
+                    <div class="progress-bar"></div>
+                    <div class="time-markers">
+                        <span class="marker start">3:30 PM</span>
+                        <span class="marker current"></span>
+                        <span class="marker end">8:30 PM</span>
+                    </div>
+                </div>
+            `;
+            scheduleContainer.appendChild(indicator);
+
+            // Actualizar barra de progreso
+            function updateProgressBar() {
+                const now = new Date();
+                const currentTime = now.getHours() * 60 + now.getMinutes();
+                const openTime = 15 * 60 + 30;
+                const closeTime = 20 * 60 + 30;
+                
+                const progressBar = document.querySelector('.progress-bar');
+                const currentMarker = document.querySelector('.marker.current');
+                
+                if (!progressBar || !currentMarker) return;
+
+                if (currentTime >= openTime && currentTime <= closeTime) {
+                    const progress = ((currentTime - openTime) / (closeTime - openTime)) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    progressBar.style.background = 'linear-gradient(90deg, #4CAF50, #81C784)';
+                    currentMarker.textContent = now.toLocaleTimeString('es-MX', { 
+                        hour: '2-digit', 
+                        minute: '2-digit',
+                        hour12: true 
+                    });
+                    currentMarker.style.color = '#4CAF50';
+                } else {
+                    progressBar.style.width = '0%';
+                    currentMarker.textContent = 'CERRADO';
+                    currentMarker.style.color = '#F44336';
+                }
+            }
+
+            updateProgressBar();
+            setInterval(updateProgressBar, 30000); // Actualizar cada 30 segundos
+        }
+
+        // Inicializar
         updateScheduleStatus();
-        setInterval(updateScheduleStatus, 60000);
+        createTimeIndicator();
+        
+        // Actualizar cada 30 segundos para más precisión
+        setInterval(updateScheduleStatus, 30000);
     }
 
     // Mensajes de bienvenida
